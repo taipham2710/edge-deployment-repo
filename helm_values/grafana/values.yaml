@@ -1,0 +1,58 @@
+grafana.ini:
+  server:
+    root_url: "http://grafana.k3s.local/"
+    serve_from_sub_path: true
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-server.prometheus.svc.cluster.local
+      access: proxy
+      isDefault: true
+    - name: Loki
+      type: loki
+      url: http://loki.lokistack.svc.cluster.local:3100
+      access: proxy
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards
+
+dashboards:
+  default:
+    k8s-dashboard:
+      gnetId: 15661
+      datasource: Prometheus
+    loki-logs:
+      gnetId: 12019
+      datasource: Loki
+    node-exporter:
+      gnetId: 1860
+      datasource: Prometheus
+    emqx-dashboard:
+      gnetId: 17446
+      datasource: Prometheus
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+persistence:
+  enabled: true
+  size: 5Gi

@@ -1,0 +1,20 @@
+replicaCount: 2  # Giảm xuống 2 replica
+
+dashboard:
+  httpPrefix: /emqx
+
+persistence:
+  enabled: true
+  storageClassName: standard
+  size: 5Gi  # Giảm kích thước PV
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 1
+    memory: 2Gi
+
+metrics:
+  enabled: true

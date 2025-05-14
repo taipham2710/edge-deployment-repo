@@ -1,0 +1,37 @@
+loki:
+  server:
+    http_prefix: /loki
+
+  # Monolithic cho cluster nhỏ
+  singleBinary:
+    replicas: 1
+
+  storage:
+    type: filesystem
+
+  limits_config:
+    retention_period: 168h  # 7 ngày
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+  persistence:
+    enabled: true
+    storageClassName: "local-path"
+    size: 10Gi # Điều chỉnh kích thước
+
+promtail:
+  enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+grafana:
+      enabled: false

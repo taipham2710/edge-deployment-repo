@@ -1,0 +1,28 @@
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Kubernetes files (optional, if you don't want to track changes)
+kubernetes_manifests/
+
+# Helm chart dependencies (optional)
+helm_values/*/charts/
+
+# Packages
+*.tar.gz
+*.zip
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

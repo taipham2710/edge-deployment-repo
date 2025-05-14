@@ -1,0 +1,46 @@
+server:
+  persistentVolume:
+    enabled: true
+    size: 15Gi
+
+  extraArgs:
+    web.external-url: "/prometheus"
+
+  retention: "7d"
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+
+  livenessProbe:
+    httpGet:
+      path: /prometheus/-/healthy
+      port: 9090
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 6
+
+  readinessProbe:
+    httpGet:
+      path: /prometheus/-/ready
+      port: 9090
+    initialDelaySeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 6
+
+# Tối ưu cho cluster nhỏ
+alertmanager:
+  enabled: true
+  prefixURL: /prometheus/alertmanager
+  persistence:
+    size: 5Gi  # Giảm kích thước PV cho alertmanager
+
+# Tắt một số exporter không cần thiết để tiết kiệm tài nguyên
+# nodeExporter:
+#  enabled: true  # Giữ node exporter
+# pushgateway:
+#  enabled: false  # Có thể tắt nếu không cần
