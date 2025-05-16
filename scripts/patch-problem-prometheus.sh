@@ -13,8 +13,8 @@ echo "--------------Xóa PVC cũ (mất dữ liệu metrics cũ!)---------------
 sudo kubectl delete pvc -n prometheus prometheus-server
 sudo kubectl delete pvc -n prometheus prometheus-alertmanager-prometheus-alertmanager-0
 
-echo "Upgrade lại Helm chart với prometheus-values.yaml"
-helm upgrade prometheus prometheus-community/prometheus -n prometheus -f prometheus-values.yaml
+echo "Upgrade lại Helm chart với values.yaml"
+helm upgrade prometheus prometheus-community/prometheus -n prometheus -f ../helm_values/promtheus/values.yaml
 
 echo "-----------patch deployment------------"
 sudo kubectl -n prometheus patch deployment prometheus-server --type=strategic -p '{
